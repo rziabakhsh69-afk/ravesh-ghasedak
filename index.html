@@ -3,259 +3,650 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2F7A55">
 <title>رویش قاصدک</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#EEF4EC;
-    --ink:#1E2B27;
-    --muted:#5B6B66;
-    --leaf:#3B7A57;
-    --leaf-dark:#2C5E43;
-    --sun:#F2B91D;
-    --sky:#D9E9F1;
-    --line:#C9D8CF;
-    --white:#FFFFFF;
-    --danger:#B3261E;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,sans-serif;line-height:1.9;font-size:16px}
-  .hero{background:var(--sky);padding:28px 20px 22px;text-align:center;border-bottom:4px solid var(--sun)}
-  .hero svg{width:84px;height:84px}
-  .hero h1{margin:6px 0 2px;font-size:34px;font-weight:800;color:var(--leaf-dark)}
-  .hero p{margin:0;color:var(--muted);font-size:15px}
-  main{max-width:620px;margin:0 auto;padding:22px 18px 40px}
-  .intro{margin:0 0 18px;color:var(--muted)}
-  label{display:block;font-weight:600;margin:16px 0 4px}
-  .hint{font-weight:400;color:var(--muted);font-size:13px}
-  input[type=text],input[type=email],input[type=password],textarea{
-    width:100%;padding:11px 12px;font:inherit;border:1.5px solid var(--line);border-radius:10px;background:var(--white);color:var(--ink)}
-  textarea{min-height:110px;resize:vertical}
-  input:focus,textarea:focus,button:focus-visible{outline:3px solid var(--sun);outline-offset:1px;border-color:var(--leaf)}
-  input[type=file]{width:100%;padding:10px;border:1.5px dashed var(--leaf);border-radius:10px;background:var(--white);font:inherit}
-  button{font:inherit;font-weight:600;cursor:pointer;border:0;border-radius:10px;padding:13px 20px}
-  .primary{width:100%;margin-top:22px;background:var(--leaf);color:#fff;font-size:17px}
-  .primary:hover{background:var(--leaf-dark)}
-  .primary:disabled{opacity:.6;cursor:wait}
-  .ghost{background:transparent;color:var(--leaf-dark);padding:6px 4px;text-decoration:underline;font-weight:400}
-  .msg{margin-top:16px;padding:12px 14px;border-radius:10px;display:none}
-  .msg.ok{display:block;background:#E1F1E6;border:1.5px solid var(--leaf);color:var(--leaf-dark)}
-  .msg.err{display:block;background:#FBE9E7;border:1.5px solid var(--danger);color:var(--danger)}
-  footer{max-width:620px;margin:0 auto;padding:0 18px 36px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:18px}
-  footer p{margin:2px 0}
-  .card{background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
-  .card h3{margin:0 0 2px;font-size:18px;color:var(--leaf-dark)}
-  .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
-  .card img,.card video{width:100%;max-height:340px;object-fit:contain;background:#0001;border-radius:8px;margin-top:8px}
-  .bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-  .hidden{display:none}
+:root{
+  --paper:#F6FAF5;
+  --white:#FFFFFF;
+  --ink:#1D2A25;
+  --muted:#586963;
+  --leaf:#2F7A55;
+  --leaf-dark:#1F5A3E;
+  --leaf-soft:#E3F1E8;
+  --sun:#F2B91D;
+  --sun-soft:#FFF4CF;
+  --sky:#DCEEF7;
+  --line:#CBDBD1;
+  --danger:#B3261E;
+  --danger-soft:#FBE9E7;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;line-height:1.95;font-size:17px}
+.hidden{display:none !important}
+
+/* ---------- سربرگ ---------- */
+.hero{background:var(--sky);padding:26px 18px 22px;text-align:center;border-bottom:5px solid var(--sun)}
+.hero svg{width:92px;height:92px;overflow:visible}
+.hero .head{transform-origin:50px 52px;animation:sway 6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@media (prefers-reduced-motion:reduce){.hero .head{animation:none}}
+.hero h1{margin:6px 0 0;font-size:36px;font-weight:800;color:var(--leaf-dark);line-height:1.4}
+.hero p{margin:2px 0 0;color:var(--muted);font-size:15px}
+
+/* ---------- محتوا ---------- */
+main{max-width:640px;margin:0 auto;padding:22px 16px 28px}
+.intro{margin:0 0 6px;color:var(--muted)}
+.card-form{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius);padding:8px 18px 22px;margin-top:14px}
+label{display:block;font-weight:600;margin:18px 0 4px}
+.req{color:var(--danger)}
+.hint{font-weight:400;color:var(--muted);font-size:14px}
+input[type=text],input[type=url],input[type=email],input[type=password],textarea{
+  width:100%;padding:12px 14px;font:inherit;border:1.5px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);min-height:50px}
+textarea{min-height:120px;resize:vertical}
+input[type=file]{width:100%;padding:12px;border:2px dashed var(--leaf);border-radius:12px;background:var(--leaf-soft);font:inherit;min-height:56px}
+input:focus,textarea:focus{outline:3px solid var(--sun);outline-offset:1px;border-color:var(--leaf)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.ltr{direction:ltr;text-align:left}
+.trap{position:absolute;inset-inline-start:-9999px;width:1px;height:1px;overflow:hidden}
+
+button,.btn{font:inherit;font-weight:600;cursor:pointer;border:0;border-radius:12px;padding:12px 18px;min-height:48px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.primary{width:100%;margin-top:24px;background:var(--leaf);color:#fff;font-size:18px;min-height:56px}
+.primary:hover{background:var(--leaf-dark)}
+.primary:disabled{opacity:.65;cursor:wait}
+.soft{background:var(--leaf-soft);color:var(--leaf-dark)}
+.soft:hover{background:#d3e9db}
+.sun{background:var(--sun-soft);color:#6B4E00}
+.sun:hover{background:#ffeba8}
+.danger{background:var(--danger-soft);color:var(--danger)}
+.danger:hover{background:#f6d4cf}
+button:disabled{opacity:.6;cursor:wait}
+.ghost{background:transparent;color:var(--leaf-dark);padding:6px 8px;text-decoration:underline;font-weight:400;min-height:44px}
+
+.msg{margin-top:16px;padding:13px 15px;border-radius:12px;display:none;font-weight:600}
+.msg.ok{display:block;background:var(--leaf-soft);border:1.5px solid var(--leaf);color:var(--leaf-dark)}
+.msg.err{display:block;background:var(--danger-soft);border:1.5px solid var(--danger);color:var(--danger)}
+.msg small{display:block;font-weight:400;direction:ltr;text-align:left;opacity:.8;word-break:break-word;margin-top:4px}
+
+.preview{margin-top:10px;display:none;align-items:center;gap:12px}
+.preview.show{display:flex}
+.preview img{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1.5px solid var(--line)}
+.preview span{font-size:14px;color:var(--muted)}
+
+/* ---------- پنل مدیر ---------- */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.bar h2{margin:0;font-size:21px;color:var(--leaf-dark)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.count-pill{display:inline-block;background:var(--sun-soft);border:1.5px solid var(--sun);color:#6B4E00;border-radius:999px;padding:2px 14px;font-weight:600;font-size:15px}
+.item{background:var(--white);border:1.5px solid var(--line);border-inline-start:6px solid var(--leaf);border-radius:var(--radius);padding:14px 16px;margin:14px 0}
+.item h3{margin:0;font-size:19px;color:var(--leaf-dark);line-height:1.6}
+.meta{color:var(--muted);font-size:14px;margin:0 0 6px}
+.desc{white-space:pre-wrap;word-break:break-word;margin:6px 0}
+.item img,.item video{display:block;width:100%;max-height:360px;object-fit:contain;background:#eef3ef;border-radius:10px;margin-top:10px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.empty{text-align:center;color:var(--muted);padding:26px 8px}
+.more{width:100%;margin-top:10px}
+
+footer{max-width:640px;margin:0 auto;padding:18px 16px 36px;text-align:center;color:var(--muted);font-size:15px;border-top:1px solid var(--line)}
+footer p{margin:2px 0}
+
+/* ---------- پنجرهٔ تأیید ---------- */
+.modal{position:fixed;inset:0;background:rgba(20,35,28,.55);display:flex;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal .box{background:var(--white);border-radius:var(--radius);padding:20px;max-width:420px;width:100%;border-top:6px solid var(--danger)}
+.modal h3{margin:0 0 6px;font-size:19px;color:var(--danger)}
+.modal p{margin:0 0 16px;word-break:break-word}
+.modal .row{display:flex;gap:10px}
+.modal .row button{flex:1}
+
+@media (min-width:700px){ .hero h1{font-size:42px} }
 </style>
 </head>
 <body>
 
 <header class="hero">
   <svg viewBox="0 0 100 100" aria-hidden="true">
-    <path d="M50 52 C50 70 46 84 40 96" stroke="#3B7A57" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <path d="M46 80 C36 78 30 70 28 64 C38 64 44 70 46 80Z" fill="#3B7A57"/>
-    <g stroke="#F2B91D" stroke-width="2.4" stroke-linecap="round">
-      <line x1="50" y1="40" x2="50" y2="10"/><line x1="50" y1="40" x2="71" y2="19"/>
-      <line x1="50" y1="40" x2="80" y2="40"/><line x1="50" y1="40" x2="71" y2="61"/>
-      <line x1="50" y1="40" x2="29" y2="61"/><line x1="50" y1="40" x2="20" y2="40"/>
-      <line x1="50" y1="40" x2="29" y2="19"/><line x1="50" y1="40" x2="62" y2="12"/>
-      <line x1="50" y1="40" x2="38" y2="12"/><line x1="50" y1="40" x2="77" y2="28"/>
-      <line x1="50" y1="40" x2="23" y2="28"/>
+    <path d="M50 52 C50 70 46 84 40 96" stroke="#2F7A55" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M46 80 C36 78 30 70 28 64 C38 64 44 70 46 80Z" fill="#2F7A55"/>
+    <g class="head">
+      <g stroke="#F2B91D" stroke-width="2.4" stroke-linecap="round">
+        <line x1="50" y1="40" x2="50" y2="10"/><line x1="50" y1="40" x2="71" y2="19"/>
+        <line x1="50" y1="40" x2="80" y2="40"/><line x1="50" y1="40" x2="71" y2="61"/>
+        <line x1="50" y1="40" x2="29" y2="61"/><line x1="50" y1="40" x2="20" y2="40"/>
+        <line x1="50" y1="40" x2="29" y2="19"/><line x1="50" y1="40" x2="62" y2="12"/>
+        <line x1="50" y1="40" x2="38" y2="12"/><line x1="50" y1="40" x2="77" y2="28"/>
+        <line x1="50" y1="40" x2="23" y2="28"/>
+      </g>
+      <g fill="#F2B91D">
+        <circle cx="50" cy="10" r="3"/><circle cx="71" cy="19" r="3"/><circle cx="80" cy="40" r="3"/>
+        <circle cx="29" cy="19" r="3"/><circle cx="20" cy="40" r="3"/><circle cx="62" cy="12" r="3"/>
+        <circle cx="38" cy="12" r="3"/><circle cx="77" cy="28" r="3"/><circle cx="23" cy="28" r="3"/>
+      </g>
+      <circle cx="50" cy="40" r="6" fill="#2F7A55"/>
     </g>
-    <g fill="#F2B91D"><circle cx="50" cy="10" r="3"/><circle cx="71" cy="19" r="3"/><circle cx="80" cy="40" r="3"/>
-      <circle cx="29" cy="19" r="3"/><circle cx="20" cy="40" r="3"/><circle cx="62" cy="12" r="3"/>
-      <circle cx="38" cy="12" r="3"/><circle cx="77" cy="28" r="3"/><circle cx="23" cy="28" r="3"/></g>
-    <circle cx="50" cy="40" r="6" fill="#3B7A57"/>
   </svg>
   <h1>رویش قاصدک</h1>
   <p>زیر نظر موسسه معراج اندیشه گل‌گهر</p>
 </header>
 
-<!-- فرم همکاران -->
+<!-- ===================== فرم همکاران ===================== -->
 <main id="formView">
-  <p class="intro">همکار گرامی، اطلاعات و تصویر یا فیلم فعالیت خود را در این فرم ثبت کنید. فقط مدیر سایت آن را می‌بیند.</p>
-  <form id="form" novalidate>
-    <label for="full_name">نام و نام خانوادگی</label>
+  <p class="intro">همکار گرامی، فعالیت خود را در این فرم ثبت کنید. فقط مدیر سایت اطلاعات را می‌بیند.</p>
+
+  <form id="form" class="card-form" novalidate autocomplete="on">
+    <label for="full_name">نام و نام خانوادگی <span class="req">*</span></label>
     <input type="text" id="full_name" maxlength="120" autocomplete="name">
 
-    <label for="school">مدرسه</label>
+    <label for="school">نام مدرسه</label>
     <input type="text" id="school" maxlength="120">
 
-    <label for="activity_title">عنوان فعالیت</label>
+    <label for="activity_title">عنوان فعالیت <span class="req">*</span></label>
     <input type="text" id="activity_title" maxlength="160">
 
-    <label for="activity_description">توضیح فعالیت</label>
+    <label for="activity_description">توضیحات فعالیت</label>
     <textarea id="activity_description" maxlength="3000"></textarea>
 
-    <label for="photo">عکس فعالیت <span class="hint">(اختیاری، حداکثر ۵۰ مگابایت)</span></label>
+    <label for="photo">عکس فعالیت <span class="hint">(اختیاری؛ عکس پیش از ارسال خودکار کوچک می‌شود)</span></label>
     <input type="file" id="photo" accept="image/*">
+    <div class="preview" id="photoPreview"><img id="photoThumb" alt="پیش‌نمایش عکس"><span id="photoInfo"></span></div>
 
-    <label for="video">فیلم فعالیت <span class="hint">(اختیاری، حداکثر ۵۰ مگابایت)</span></label>
-    <input type="file" id="video" accept="video/*">
+    <label for="video_link">لینک فیلم فعالیت <span class="hint">(اختیاری)</span></label>
+    <input type="url" id="video_link" class="ltr" maxlength="500" inputmode="url" placeholder="https://..." autocomplete="off">
+    <div class="hint" style="margin-top:4px">فیلم را در آپارات، یوتیوب یا گوگل‌درایو بگذارید و لینک آن را اینجا بچسبانید.</div>
+
+    <!-- تله برای ربات‌ها؛ کاربر واقعی آن را نمی‌بیند -->
+    <div class="trap" aria-hidden="true"><label>وب‌سایت<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
 
     <button type="submit" class="primary" id="sendBtn">ارسال فعالیت</button>
-    <div id="formMsg" class="msg" role="status"></div>
+    <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
   </form>
 </main>
 
-<!-- بخش مدیر -->
+<!-- ===================== بخش مدیر ===================== -->
 <main id="adminView" class="hidden">
-  <div id="loginBox">
-    <h2>ورود مدیر سایت</h2>
+  <div id="loginBox" class="card-form">
+    <h2 style="color:var(--leaf-dark);margin:14px 0 0">ورود مدیر سایت</h2>
     <label for="adm_email">ایمیل</label>
-    <input type="email" id="adm_email" dir="ltr" autocomplete="username">
+    <input type="email" id="adm_email" class="ltr" autocomplete="username">
     <label for="adm_pass">رمز عبور</label>
-    <input type="password" id="adm_pass" dir="ltr" autocomplete="current-password">
-    <button class="primary" id="loginBtn">ورود</button>
-    <div id="loginMsg" class="msg" role="status"></div>
+    <input type="password" id="adm_pass" class="ltr" autocomplete="current-password">
+    <button class="primary" id="loginBtn" type="button">ورود</button>
+    <div id="loginMsg" class="msg" role="status" aria-live="polite"></div>
   </div>
+
   <div id="panel" class="hidden">
-    <div class="bar"><h2 id="count">فعالیت‌های ثبت‌شده</h2><button class="ghost" id="logoutBtn">خروج</button></div>
+    <div class="bar">
+      <h2>فعالیت‌های ثبت‌شده</h2>
+      <button class="ghost" id="logoutBtn" type="button">خروج از حساب</button>
+    </div>
+    <div class="tools">
+      <span class="count-pill" id="count">تعداد کل: ...</span>
+      <button class="btn soft" id="refreshBtn" type="button">تازه‌سازی فهرست</button>
+    </div>
+    <div id="adminMsg" class="msg" role="status" aria-live="polite"></div>
     <div id="list"></div>
+    <button class="btn soft more hidden" id="moreBtn" type="button">نمایش موارد بیشتر</button>
   </div>
 </main>
 
 <footer>
   <p>مدیر سایت: رقیه ضیابخش</p>
-  <p><button class="ghost" id="toggleAdmin">ورود مدیر</button></p>
+  <p><button class="ghost" id="toggleAdmin" type="button">ورود مدیر</button></p>
 </footer>
+
+<!-- پنجرهٔ تأیید حذف -->
+<div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="box">
+    <h3 id="modalTitle">تأیید حذف</h3>
+    <p id="modalText"></p>
+    <div class="row">
+      <button type="button" class="btn soft" id="modalNo">انصراف</button>
+      <button type="button" class="btn danger" id="modalYes">بله، حذف شود</button>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = "https://rpbqnnzsammouarzvjqa.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_l9wuYzzcgFXoRCvF0pXq8A_wa-woXnl";
-  const BUCKET = "activities";
-  const MAX_BYTES = 50 * 1024 * 1024;
+"use strict";
 
-  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  const $ = (id) => document.getElementById(id);
+/* ---------- تنظیمات ---------- */
+const SUPABASE_URL = "https://rpbqnnzsammouarzvjqa.supabase.co";
+const SUPABASE_KEY = "sb_publishable_l9wuYzzcgFXoRCvF0pXq8A_wa-woXnl"; // کلید عمومی (امن برای مرورگر؛ امنیت واقعی با RLS است)
+const TABLE  = "submissions";
+const BUCKET = "activities";
 
-  function show(el, text, type){ el.textContent = text; el.className = "msg " + type; }
-  function clear(el){ el.textContent = ""; el.className = "msg"; }
+const MAX_PHOTO_INPUT  = 30 * 1024 * 1024; // بیشینهٔ عکس خام انتخاب‌شده
+const MAX_PHOTO_UPLOAD = 5  * 1024 * 1024; // بیشینهٔ عکس پس از فشرده‌سازی
+const MAX_SIDE   = 1600;                   // بزرگ‌ترین بعد عکس (پیکسل)
+const JPEG_QUALITY = 0.82;
+const PAGE_SIZE  = 20;
 
-  function extOf(file){
-    const e = (file.name.split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-    return e || "bin";
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = (id) => document.getElementById(id);
+
+/* ---------- ابزارهای عمومی ---------- */
+function show(el, text, type, tech){
+  el.textContent = text;
+  el.className = "msg " + type;
+  if (tech) {
+    const s = document.createElement("small");
+    s.textContent = tech;
+    el.appendChild(s);
   }
+}
+function clearMsg(el){ el.textContent = ""; el.className = "msg"; }
 
-  async function uploadFile(file, folder, base){
-    const path = folder + "/" + base + "." + extOf(file);
-    const { error } = await db.storage.from(BUCKET).upload(path, file, { contentType: file.type, upsert: false });
-    if (error) throw error;
-    return path;
-  }
+function faError(err){
+  const m = String((err && (err.message || err.error_description)) || err || "");
+  if (/failed to fetch|networkerror|network request|load failed/i.test(m)) return "اتصال اینترنت برقرار نیست یا ضعیف است.";
+  if (/video_link/i.test(m)) return "ستون «لینک فیلم» هنوز در پایگاه داده ساخته نشده است. مدیر باید فایل SQL را اجرا کند.";
+  if (/row-level security|violates row|permission denied|not authorized|unauthorized/i.test(m)) return "اجازهٔ انجام این کار داده نشده است.";
+  if (/maximum allowed size|payload too large|too large/i.test(m)) return "حجم فایل از حد مجاز بیشتر است.";
+  if (/bucket not found/i.test(m)) return "محل ذخیرهٔ فایل‌ها پیدا نشد.";
+  if (/invalid login|invalid credentials/i.test(m)) return "ایمیل یا رمز عبور درست نیست.";
+  if (/jwt|token|session/i.test(m)) return "نشست ورود منقضی شده است؛ دوباره وارد شوید.";
+  return "خطایی رخ داد.";
+}
+function techOf(err){ return String((err && err.message) || err || "").slice(0, 200); }
 
-  // ---------- فرم همکاران ----------
-  $("form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const msg = $("formMsg"); clear(msg);
+function fmtMB(bytes){ return (bytes / 1048576).toLocaleString("fa-IR", {maximumFractionDigits: 1}); }
+function extOf(path){ const e = (String(path).split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, ""); return e || "bin"; }
 
-    const name = $("full_name").value.trim();
-    const title = $("activity_title").value.trim();
-    const photo = $("photo").files[0];
-    const video = $("video").files[0];
+function safeHttpUrl(value){
+  try {
+    const u = new URL(value);
+    return (u.protocol === "http:" || u.protocol === "https:") ? u.href : null;
+  } catch (_) { return null; }
+}
 
-    if (!name) return show(msg, "نام و نام خانوادگی را وارد کنید.", "err");
-    if (!title) return show(msg, "عنوان فعالیت را وارد کنید.", "err");
-    if (photo && photo.size > MAX_BYTES) return show(msg, "حجم عکس بیشتر از ۵۰ مگابایت است. عکس کوچک‌تری انتخاب کنید.", "err");
-    if (video && video.size > MAX_BYTES) return show(msg, "حجم فیلم بیشتر از ۵۰ مگابایت است. فیلم کوتاه‌تر یا فشرده‌تری انتخاب کنید.", "err");
-
-    const btn = $("sendBtn");
-    btn.disabled = true; btn.textContent = "در حال ارسال... لطفاً صفحه را نبندید";
-    try {
-      const folder = crypto.randomUUID();
-      const photo_path = photo ? await uploadFile(photo, folder, "photo") : null;
-      const video_path = video ? await uploadFile(video, folder, "video") : null;
-
-      const { error } = await db.from("submissions").insert({
-        full_name: name,
-        school: $("school").value.trim() || null,
-        activity_title: title,
-        activity_description: $("activity_description").value.trim() || null,
-        photo_path, video_path
-      });
-      if (error) throw error;
-
-      $("form").reset();
-      show(msg, "فعالیت شما ثبت شد. سپاسگزاریم.", "ok");
-    } catch (err) {
-      console.error(err);
-      show(msg, "ارسال انجام نشد. اینترنت خود را بررسی کنید و دوباره تلاش کنید. (" + (err.message || "خطای نامشخص") + ")", "err");
-    } finally {
-      btn.disabled = false; btn.textContent = "ارسال فعالیت";
-    }
+/* ---------- فشرده‌سازی عکس ---------- */
+function loadImageElement(file){
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("decode")); };
+    img.src = url;
   });
-
-  // ---------- بخش مدیر ----------
-  function openAdmin(open){
-    $("formView").classList.toggle("hidden", open);
-    $("adminView").classList.toggle("hidden", !open);
-    $("toggleAdmin").textContent = open ? "بازگشت به فرم" : "ورود مدیر";
-    if (open) refreshAdmin();
+}
+async function decodeImage(file){
+  try { return await createImageBitmap(file, { imageOrientation: "from-image" }); }
+  catch (_) { return await loadImageElement(file); }
+}
+async function compressPhoto(file){
+  if (file.type === "image/gif" || file.type === "image/svg+xml") {
+    if (file.size > MAX_PHOTO_UPLOAD) throw new Error("big");
+    return { blob: file, ext: extOf(file.name), type: file.type };
   }
-  $("toggleAdmin").addEventListener("click", () => {
-    const opening = $("adminView").classList.contains("hidden");
-    location.hash = opening ? "admin" : "";
-    openAdmin(opening);
-  });
-
-  async function refreshAdmin(){
-    const { data } = await db.auth.getSession();
-    const logged = !!data.session;
-    $("loginBox").classList.toggle("hidden", logged);
-    $("panel").classList.toggle("hidden", !logged);
-    if (logged) loadList();
+  let src;
+  try { src = await decodeImage(file); }
+  catch (_) {
+    // مرورگر نتوانست عکس را بخواند؛ اگر کوچک است همان را بفرست
+    if (file.size <= MAX_PHOTO_UPLOAD) return { blob: file, ext: extOf(file.name), type: file.type || "application/octet-stream" };
+    throw new Error("decode");
   }
-
-  $("loginBtn").addEventListener("click", async () => {
-    const msg = $("loginMsg"); clear(msg);
-    const { error } = await db.auth.signInWithPassword({
-      email: $("adm_email").value.trim(), password: $("adm_pass").value
-    });
-    if (error) return show(msg, "ایمیل یا رمز عبور درست نیست.", "err");
-    $("adm_pass").value = "";
-    refreshAdmin();
-  });
-
-  $("logoutBtn").addEventListener("click", async () => { await db.auth.signOut(); refreshAdmin(); });
-
-  async function signed(path){
-    if (!path) return null;
-    const { data, error } = await db.storage.from(BUCKET).createSignedUrl(path, 3600);
-    return error ? null : data.signedUrl;
+  const w0 = src.width || src.naturalWidth, h0 = src.height || src.naturalHeight;
+  const scale = Math.min(1, MAX_SIDE / Math.max(w0, h0));
+  const w = Math.max(1, Math.round(w0 * scale)), h = Math.max(1, Math.round(h0 * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); // پس‌زمینهٔ سفید برای عکس‌های شفاف
+  ctx.drawImage(src, 0, 0, w, h);
+  if (src.close) src.close();
+  const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", JPEG_QUALITY));
+  if (!blob) throw new Error("decode");
+  // اگر فشرده‌شده بزرگ‌تر از اصل بود و اصل مجاز است، اصل را نگه دار
+  if (blob.size >= file.size && file.size <= MAX_PHOTO_UPLOAD && file.type === "image/jpeg") {
+    return { blob: file, ext: "jpg", type: "image/jpeg" };
   }
+  if (blob.size > MAX_PHOTO_UPLOAD) throw new Error("big");
+  return { blob, ext: "jpg", type: "image/jpeg" };
+}
 
-  async function loadList(){
-    const list = $("list");
-    list.textContent = "در حال بارگذاری...";
-    const { data, error } = await db.from("submissions").select("*").order("created_at", { ascending: false });
-    if (error) { list.textContent = "خطا در دریافت اطلاعات: " + error.message; return; }
-    $("count").textContent = "فعالیت‌های ثبت‌شده: " + data.length.toLocaleString("fa-IR");
-    list.textContent = "";
-    if (!data.length) { list.textContent = "هنوز فعالیتی ثبت نشده است."; return; }
+/* ---------- پیش‌نمایش عکس ---------- */
+let previewUrl = null;
+function resetPreview(){
+  if (previewUrl) { URL.revokeObjectURL(previewUrl); previewUrl = null; }
+  $("photoPreview").classList.remove("show");
+  $("photoThumb").removeAttribute("src");
+  $("photoInfo").textContent = "";
+}
+$("photo").addEventListener("change", () => {
+  resetPreview();
+  const f = $("photo").files[0];
+  if (!f) return;
+  if (!f.type.startsWith("image/")) {
+    show($("formMsg"), "فایل انتخاب‌شده عکس نیست. لطفاً یک عکس انتخاب کنید.", "err");
+    $("photo").value = ""; return;
+  }
+  if (f.size > MAX_PHOTO_INPUT) {
+    show($("formMsg"), "حجم این عکس بیش از " + fmtMB(MAX_PHOTO_INPUT) + " مگابایت است. عکس کوچک‌تری انتخاب کنید.", "err");
+    $("photo").value = ""; return;
+  }
+  clearMsg($("formMsg"));
+  previewUrl = URL.createObjectURL(f);
+  $("photoThumb").src = previewUrl;
+  $("photoInfo").textContent = "حجم عکس: " + fmtMB(f.size) + " مگابایت — پیش از ارسال کوچک می‌شود.";
+  $("photoPreview").classList.add("show");
+});
 
-    for (const row of data) {
-      const card = document.createElement("div"); card.className = "card";
-      const h = document.createElement("h3"); h.textContent = row.activity_title; card.appendChild(h);
-      const m = document.createElement("p"); m.className = "meta";
-      m.textContent = row.full_name + (row.school ? " - " + row.school : "") + " - " +
-        new Date(row.created_at).toLocaleString("fa-IR");
-      card.appendChild(m);
-      if (row.activity_description) {
-        const d = document.createElement("p"); d.textContent = row.activity_description; card.appendChild(d);
+/* ---------- ثبت فعالیت ---------- */
+let sending = false;
+$("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (sending) return;
+  const msg = $("formMsg"); clearMsg(msg);
+
+  if ($("website").value) return; // ربات
+
+  const name  = $("full_name").value.trim();
+  const title = $("activity_title").value.trim();
+  const photo = $("photo").files[0];
+  let link = $("video_link").value.trim();
+
+  if (!name)  { show(msg, "نام و نام خانوادگی را وارد کنید.", "err"); $("full_name").focus(); return; }
+  if (!title) { show(msg, "عنوان فعالیت را وارد کنید.", "err"); $("activity_title").focus(); return; }
+
+  if (link) {
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(link)) link = "https://" + link;
+    const ok = safeHttpUrl(link);
+    if (!ok) { show(msg, "لینک فیلم درست نیست. لینک باید با https:// شروع شود.", "err"); $("video_link").focus(); return; }
+    link = ok;
+    if (link.length > 500) { show(msg, "لینک فیلم خیلی طولانی است.", "err"); return; }
+  }
+  if (photo && !photo.type.startsWith("image/")) { show(msg, "فایل انتخاب‌شده عکس نیست.", "err"); return; }
+  if (photo && photo.size > MAX_PHOTO_INPUT) { show(msg, "حجم عکس زیاد است. عکس کوچک‌تری انتخاب کنید.", "err"); return; }
+
+  sending = true;
+  const btn = $("sendBtn");
+  btn.disabled = true;
+  btn.textContent = "در حال ارسال... لطفاً صفحه را نبندید";
+
+  let uploadedPath = null;
+  try {
+    let photo_path = null;
+    if (photo) {
+      btn.textContent = "در حال آماده‌سازی عکس...";
+      let packed;
+      try { packed = await compressPhoto(photo); }
+      catch (err) {
+        if (err.message === "big") throw { friendly: "حجم عکس حتی پس از کوچک‌کردن زیاد است. عکس دیگری انتخاب کنید." };
+        throw { friendly: "این عکس خوانده نشد. عکس دیگری انتخاب کنید یا از آن اسکرین‌شات بگیرید." };
       }
-      const [pUrl, vUrl] = await Promise.all([signed(row.photo_path), signed(row.video_path)]);
-      if (pUrl) { const i = document.createElement("img"); i.src = pUrl; i.alt = row.activity_title; card.appendChild(i); }
-      if (vUrl) { const v = document.createElement("video"); v.src = vUrl; v.controls = true; v.preload = "metadata"; card.appendChild(v); }
-      list.appendChild(card);
+      btn.textContent = "در حال ارسال عکس...";
+      const path = crypto.randomUUID() + "/photo." + packed.ext;
+      const up = await db.storage.from(BUCKET).upload(path, packed.blob, { contentType: packed.type, upsert: false });
+      if (up.error) throw up.error;
+      uploadedPath = path; photo_path = path;
+    }
+
+    btn.textContent = "در حال ثبت اطلاعات...";
+    const { error } = await db.from(TABLE).insert({
+      full_name: name,
+      school: $("school").value.trim() || null,
+      activity_title: title,
+      activity_description: $("activity_description").value.trim() || null,
+      photo_path: photo_path,
+      video_link: link || null
+    });
+    if (error) throw error;
+
+    $("form").reset(); resetPreview(); uploadedPath = null;
+    show(msg, "فعالیت شما با موفقیت ثبت شد. سپاسگزاریم 🌱", "ok");
+    msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch (err) {
+    console.error(err);
+    if (uploadedPath) { try { await db.storage.from(BUCKET).remove([uploadedPath]); } catch (_) {} } // پاک‌سازی تلاشی
+    if (err && err.friendly) show(msg, err.friendly, "err");
+    else show(msg, "ارسال انجام نشد. " + faError(err) + " دوباره تلاش کنید.", "err", techOf(err));
+  } finally {
+    sending = false;
+    btn.disabled = false; btn.textContent = "ارسال فعالیت";
+  }
+});
+
+/* ---------- جابه‌جایی فرم / مدیر ---------- */
+function openAdmin(open){
+  $("formView").classList.toggle("hidden", open);
+  $("adminView").classList.toggle("hidden", !open);
+  $("toggleAdmin").textContent = open ? "بازگشت به فرم" : "ورود مدیر";
+  if (open) refreshAdmin();
+}
+$("toggleAdmin").addEventListener("click", () => {
+  const opening = $("adminView").classList.contains("hidden");
+  location.hash = opening ? "admin" : "";
+  openAdmin(opening);
+});
+
+/* ---------- ورود و خروج مدیر ---------- */
+async function refreshAdmin(){
+  let logged = false;
+  try { const { data } = await db.auth.getSession(); logged = !!(data && data.session); } catch (_) {}
+  $("loginBox").classList.toggle("hidden", logged);
+  $("panel").classList.toggle("hidden", !logged);
+  if (logged) loadList(true);
+}
+let loggingIn = false;
+async function doLogin(){
+  if (loggingIn) return;
+  const msg = $("loginMsg"); clearMsg(msg);
+  const email = $("adm_email").value.trim(), pass = $("adm_pass").value;
+  if (!email || !pass) { show(msg, "ایمیل و رمز عبور را وارد کنید.", "err"); return; }
+  loggingIn = true; $("loginBtn").disabled = true;
+  try {
+    const { error } = await db.auth.signInWithPassword({ email, password: pass });
+    if (error) throw error;
+    $("adm_pass").value = "";
+    await refreshAdmin();
+  } catch (err) {
+    show(msg, faError(err), "err");
+  } finally { loggingIn = false; $("loginBtn").disabled = false; }
+}
+$("loginBtn").addEventListener("click", doLogin);
+$("adm_pass").addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
+$("logoutBtn").addEventListener("click", async () => {
+  try { await db.auth.signOut(); } catch (_) {}
+  $("list").textContent = "";
+  refreshAdmin();
+});
+$("refreshBtn").addEventListener("click", () => loadList(true));
+$("moreBtn").addEventListener("click", () => loadList(false));
+
+/* ---------- پنجرهٔ تأیید ---------- */
+function confirmDialog(text){
+  return new Promise((resolve) => {
+    $("modalText").textContent = text;
+    const modal = $("modal");
+    modal.classList.remove("hidden");
+    const done = (v) => {
+      modal.classList.add("hidden");
+      $("modalYes").onclick = $("modalNo").onclick = null;
+      resolve(v);
+    };
+    $("modalYes").onclick = () => done(true);
+    $("modalNo").onclick = () => done(false);
+    $("modalNo").focus();
+  });
+}
+
+/* ---------- فهرست ثبت‌ها ---------- */
+const state = { offset: 0, total: 0, busy: false };
+
+async function signedMap(paths){
+  const map = {};
+  const list = [...new Set(paths.filter(Boolean))];
+  if (!list.length) return map;
+  const { data, error } = await db.storage.from(BUCKET).createSignedUrls(list, 3600);
+  if (error || !data) return map;
+  data.forEach((d) => { if (d && d.signedUrl && !d.error) map[d.path] = d.signedUrl; });
+  return map;
+}
+
+async function downloadFile(path, kind, btn){
+  const old = btn.textContent;
+  btn.disabled = true; btn.textContent = "در حال آماده‌سازی...";
+  try {
+    const stamp = path.split("/")[0].slice(0, 8);
+    const filename = "ravesh-" + kind + "-" + stamp + "." + extOf(path);
+    const { data, error } = await db.storage.from(BUCKET).createSignedUrl(path, 120, { download: filename });
+    if (error || !data) throw error || new Error("no url");
+    const a = document.createElement("a");
+    a.href = data.signedUrl; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+  } catch (err) {
+    show($("adminMsg"), "دانلود انجام نشد. " + faError(err), "err", techOf(err));
+  } finally {
+    setTimeout(() => { btn.disabled = false; btn.textContent = old; }, 1200);
+  }
+}
+
+function mkBtn(text, cls, onClick){
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "btn " + cls; b.textContent = text;
+  b.addEventListener("click", () => onClick(b));
+  return b;
+}
+
+function renderItem(row, urls){
+  const card = document.createElement("div"); card.className = "item";
+
+  const h = document.createElement("h3"); h.textContent = row.activity_title || "(بدون عنوان)"; card.appendChild(h);
+
+  const m = document.createElement("p"); m.className = "meta";
+  const when = row.created_at ? new Date(row.created_at).toLocaleString("fa-IR") : "";
+  m.textContent = (row.full_name || "—") + (row.school ? " | مدرسه: " + row.school : "") + (when ? " | " + when : "");
+  card.appendChild(m);
+
+  if (row.activity_description) {
+    const d = document.createElement("p"); d.className = "desc"; d.textContent = row.activity_description; card.appendChild(d);
+  }
+
+  const acts = document.createElement("div"); acts.className = "acts";
+
+  // عکس
+  if (row.photo_path) {
+    const url = urls[row.photo_path];
+    if (url) {
+      const img = document.createElement("img");
+      img.src = url; img.alt = row.activity_title || "عکس فعالیت"; img.loading = "lazy";
+      card.appendChild(img);
+      const open = document.createElement("a");
+      open.className = "btn soft"; open.href = url; open.target = "_blank"; open.rel = "noopener"; open.textContent = "مشاهدهٔ عکس";
+      acts.appendChild(open);
+    } else {
+      const w = document.createElement("p"); w.className = "meta"; w.textContent = "عکس پیدا نشد یا آدرس آن ساخته نشد."; card.appendChild(w);
+    }
+    acts.appendChild(mkBtn("دانلود عکس", "soft", (b) => downloadFile(row.photo_path, "photo", b)));
+  }
+
+  // فیلم قدیمی که در Storage ذخیره شده
+  if (row.video_path) {
+    const url = urls[row.video_path];
+    if (url) {
+      const v = document.createElement("video");
+      v.src = url; v.controls = true; v.preload = "metadata"; v.playsInline = true;
+      card.appendChild(v);
+    } else {
+      const w = document.createElement("p"); w.className = "meta"; w.textContent = "فایل فیلم پیدا نشد یا آدرس آن ساخته نشد."; card.appendChild(w);
+    }
+    acts.appendChild(mkBtn("دانلود فیلم", "soft", (b) => downloadFile(row.video_path, "video", b)));
+  }
+
+  // لینک فیلم
+  if (row.video_link) {
+    const safe = safeHttpUrl(row.video_link);
+    if (safe) {
+      const a = document.createElement("a");
+      a.className = "btn sun"; a.href = safe; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = "باز کردن لینک فیلم";
+      acts.appendChild(a);
+    } else {
+      const w = document.createElement("p"); w.className = "meta"; w.textContent = "لینک فیلم معتبر نیست."; card.appendChild(w);
     }
   }
 
-  if (location.hash === "#admin") openAdmin(true);
+  acts.appendChild(mkBtn("حذف", "danger", (b) => deleteRow(row, b)));
+  card.appendChild(acts);
+  return card;
+}
+
+async function loadList(reset){
+  if (state.busy) return;
+  state.busy = true;
+  const list = $("list"), more = $("moreBtn");
+  if (reset) { state.offset = 0; list.textContent = "در حال بارگذاری..."; more.classList.add("hidden"); }
+  more.disabled = true;
+  try {
+    const from = state.offset, to = from + PAGE_SIZE - 1;
+    const { data, error, count } = await db.from(TABLE).select("*", { count: "exact" })
+      .order("created_at", { ascending: false }).range(from, to);
+    if (error) throw error;
+
+    state.total = count ?? data.length;
+    $("count").textContent = "تعداد کل ثبت‌ها: " + state.total.toLocaleString("fa-IR");
+    if (reset) list.textContent = "";
+
+    if (!data.length && reset) {
+      const e = document.createElement("div"); e.className = "empty"; e.textContent = "هنوز فعالیتی ثبت نشده است."; list.appendChild(e);
+    } else {
+      const urls = await signedMap(data.flatMap((r) => [r.photo_path, r.video_path]));
+      data.forEach((r) => list.appendChild(renderItem(r, urls)));
+    }
+    state.offset += data.length;
+    more.classList.toggle("hidden", state.offset >= state.total);
+  } catch (err) {
+    console.error(err);
+    if (reset) list.textContent = "";
+    show($("adminMsg"), "دریافت فهرست انجام نشد. " + faError(err), "err", techOf(err));
+  } finally {
+    state.busy = false; more.disabled = false;
+  }
+}
+
+/* ---------- حذف ثبت و فایل‌های آن ---------- */
+async function deleteRow(row, btn){
+  const msg = $("adminMsg"); clearMsg(msg);
+  if (row.id === undefined || row.id === null) {
+    show(msg, "این جدول ستونی به نام id ندارد؛ حذف امن ممکن نیست. به سازندهٔ سایت خبر بدهید.", "err");
+    return;
+  }
+  const ok = await confirmDialog(
+    "ثبت «" + (row.activity_title || "") + "» از «" + (row.full_name || "") + "» و همهٔ فایل‌های آن برای همیشه حذف شود؟ این کار برگشت‌پذیر نیست."
+  );
+  if (!ok) return;
+
+  btn.disabled = true; btn.textContent = "در حال حذف...";
+  try {
+    // ۱) حذف ردیف (اگر مجوز نباشد، اینجا مشخص می‌شود و هنوز چیزی از فایل‌ها پاک نشده است)
+    const del = await db.from(TABLE).delete().eq("id", row.id).select("id");
+    if (del.error) throw del.error;
+    if (!del.data || !del.data.length) throw new Error("row-level security: nothing deleted");
+
+    // ۲) حذف فایل‌های همان ثبت از Storage
+    const paths = [row.photo_path, row.video_path].filter(Boolean);
+    let warn = "";
+    if (paths.length) {
+      const rm = await db.storage.from(BUCKET).remove(paths);
+      if (rm.error) warn = "ثبت حذف شد، اما حذف فایل‌ها از فضای ذخیره‌سازی انجام نشد. مسیر فایل‌ها: " + paths.join(" ، ");
+      else if ((rm.data || []).length < paths.length) warn = "ثبت حذف شد، اما همهٔ فایل‌ها از فضای ذخیره‌سازی پاک نشدند (شاید قبلاً پاک شده‌اند یا مجوز حذف فایل نیست). مسیر فایل‌ها: " + paths.join(" ، ");
+    }
+    await loadList(true);
+    if (warn) show(msg, warn, "err");
+    else show(msg, "ثبت و فایل‌های آن حذف شد.", "ok");
+  } catch (err) {
+    console.error(err);
+    show(msg, "حذف انجام نشد. " + faError(err), "err", techOf(err));
+    btn.disabled = false; btn.textContent = "حذف";
+  }
+}
+
+/* ---------- شروع ---------- */
+if (location.hash === "#admin") openAdmin(true);
 </script>
 </body>
 </html>
